@@ -1,13 +1,13 @@
 # Env
-api/.env
+.env
 
 # Python-generated files
-api/__pycache__/
-api/*.py[oc]
-api/build/
-api/dist/
-api/wheels/
-api/*.egg-info
+*/__pycache__/
+*/*.py[oc]
+*/build/
+*/dist/
+*/wheels/
+*/*.egg-info
 
 # Virtual environments
-api/.venv
+*/.venv
