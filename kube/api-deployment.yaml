@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: awslab
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      serviceAccountName: awslab-api
+      containers:
+        - name: api
+          image: YOUR_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/queue-lab-api:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: AWS_REGION
+              value: ap-south-1
+            - name: QUEUE_URL
+              value: YOUR_SQS_QUEUE_URL
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
