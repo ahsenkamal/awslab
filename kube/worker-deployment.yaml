@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: awslab
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      serviceAccountName: awslab-worker
+      containers:
+        - name: worker
+          image: YOUR_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/queue-lab-worker:latest
+          env:
+            - name: AWS_REGION
+              value: ap-south-1
+            - name: QUEUE_URL
+              value: YOUR_SQS_QUEUE_URL
+            - name: PROCESSING_SECONDS
+              value: "3"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
